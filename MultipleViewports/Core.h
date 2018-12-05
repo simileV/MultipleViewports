@@ -38,14 +38,33 @@
 #include <fstream>
 #include <filesystem>
 
+
+
+using namespace std;
+
 typedef struct
 {
+	string name;
+	GLuint pro;
+} Pro;
+
+typedef struct
+{
+	GLuint pro, uboLight, uboScene, uboDebug;
+	GLuint64 uboLight_64, uboScene_64, uboDebug_64;
+	string proN;
 	int width, height;
 	int monitorX, monitorY;
 
 	GLFWwindow *GLFWwin;
 	glm::ivec2 winPosGlobal;
 
+
+
+	vector<Pro> allPro;
+
 } Abj;
+
+extern Abj myAbj;
 
 #endif

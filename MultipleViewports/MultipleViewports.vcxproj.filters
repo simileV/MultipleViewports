@@ -13,12 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{5cf9acc2-b5fc-4b00-8503-e2cbf47803bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Setup_texShaders.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -29,5 +35,16 @@
     <ClCompile Include="MultipleViewports.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Setup_texShaders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\triF.glsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\triV.glsl">
+      <Filter>shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -2,13 +2,13 @@
 //
 
 
-#include "pch.h"
-//#include <iostream>
 #include "Core.h"
+#include "Setup_texShaders.h"
+
 
 Abj myAbj;
 
-int main()
+int main(int argc, char *argv[])
 {
     std::cout << "Hello World!\n"; 
 
@@ -18,7 +18,6 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-
 	//glfwWindowHint(GLFW_DECORATED, GL_FALSE); //
 
 	/* WIDTH / HEIGHT */
@@ -51,8 +50,34 @@ int main()
 
 	glfwFocusWindow(myAbj.GLFWwin);
 
+	GLuint VAO, VBO_P;
+
+	glCreateBuffers(1, &VBO_P);
+	glNamedBufferData(VBO_P, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+	vector<glm::vec3> triP;
+	triP.push_back({ -.5f, -.5f, 0.f });
+	triP.push_back({ .5f, -.5f, 0.f });
+	triP.push_back({ 0.f, .5f, 0.f });
+
+	glNamedBufferData(VBO_P, triP.size() * sizeof(glm::vec3), &triP[0], GL_STATIC_DRAW);
+
+	glCreateVertexArrays(1, &VAO);
+	glEnableVertexArrayAttrib(VAO, 0);
+	glVertexArrayVertexBuffer(VAO, 0, VBO_P, 0, sizeof(glm::vec3));
+	glVertexArrayAttribFormat(VAO, 0, 3, GL_FLOAT, GL_FALSE, 0);
+
+	proInit();
+
 	do
 	{
+		glClearColor(0.f, 0.f, 0.f, 0.f);
+		glViewport(0, 0, myAbj.width, myAbj.height);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		glUseProgram2("pTri");
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+
 		glfwSwapBuffers(myAbj.GLFWwin);
 		glfwPollEvents();
 	}
@@ -63,14 +88,3 @@ int main()
 
 	return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
